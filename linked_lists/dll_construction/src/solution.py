@@ -21,24 +21,38 @@ class DoublyLinkedList:
 
     def insertBefore(self, node, nodeToInsert):
         nodeToInsert.next, nodeToInsert.prev = node, node.prev
-        node.prev = nodeToInsert 
+        node.prev = nodeToInsert
+        self.size += 1
 
     def insertAfter(self, node, nodeToInsert):
         nodeToInsert.next, nodeToInsert.prev = node.next, node
         node.next = nodeToInsert
+        self.size += 1
 
     def insertAtPosition(self, position, nodeToInsert):
-        # Write your code here.
-        pass
+        node = self.header
+        for i in range(position + 1):
+            node = node.next
+
+        self.insertBefore(node, nodeToInsert)
 
     def removeNodesWithValue(self, value):
-        # Write your code here.
-        pass
+        node = self.header
+        for i in range(self.size):
+            node = node.next
+            if node.value == value:
+                self.remove(node)
 
     def remove(self, node):
-        # Write your code here.
-        pass
+        node.prev.next = node.next
+        node.next.prev = node.prev
+        node.prev, node.next = None, None
+        self.size -= 1
 
     def containsNodeWithValue(self, value):
-        # Write your code here.
-        pass
+        node = self.header
+        for i in range(self.size):
+            node = node.next
+            if node.value == value:
+                return i
+        return False
